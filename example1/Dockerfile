@@ -22,7 +22,7 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "example1.dll"]
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 #COPY ["DemoAPIAzure467/DemoAPIAzure467.csproj", "DemoAzureApi/"]
 #COPY /DemoAPIAzure467/DemoAPIAzure467.csproj . 
@@ -30,5 +30,5 @@ COPY example1.csproj .
 RUN dotnet restore
 COPY . .
 RUN dotnet publish -c release -o /app
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
+FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /app COPY --from=build /app . ENTRYPOINT ["dotnet", "example1.dll"]
